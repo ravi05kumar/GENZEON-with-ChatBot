@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genzeon Sample Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: #36c1be;
+            color: #fff;
+            padding: 10px 0;
+            margin: 0;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+        header nav ul li {
+            margin-left: 20px;
+        }
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .img1 {
+            height: 6vh;
+            width: 10vw;
+        }
+        .hero {
+            background-image: url("https://th.bing.com/th/id/OIP.yjBl75wdGMPWo8nXLkN2GwHaE8?w=1568&h=1046&rs=1&pid=ImgDetMain");
+            background-size: cover;
+            margin: 0;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(152, 48, 48);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3em;
+        }
+        section {
+            padding: 4px 0;
+        }
+        section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+        .about-text {
+            flex: 1;
+            margin-right: 30px;
+            margin-left: 30px;
+            font-family: "Roboto", sans-serif;
+        }
+        .about-image img {
+            max-width: 100%;
+            height: 50vh;
+            border-radius: 8px;
+        }
+        .service {
+            margin: 20px 0;
+        }
+        .service-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .service-text {
+            flex: 1;
+            margin-right: 20px;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+        form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        /* Chatbot CSS */
+        .chatbot-container {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            max-width: 100%;
+            z-index: 1000;
+        }
+        .chatbot-toggle {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: blink 1s infinite;
+            transition: background-color 0.3s ease;
+        }
+        .chatbot-toggle:hover {
+            background-color: #0056b3;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .chatbot {
+            display: none;
+            flex-direction: column;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .chatbot.active {
+            display: flex;
+        }
+        .chatbot-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-body {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .chatbot-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+        }
+        .chatbot-input button {
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            header .container {
+                flex-direction: column;
+            }
+            header nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            header nav ul li {
+                margin: 10px 0;
+            }
+            .hero h1 {
+                font-size: 2em;
+            }
+            .chatbot-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://ahip.imgix.net/logos/genzeon-logo.png?auto=format%2Ccompress&crop=focalpoint&fit=crop&fp-x=0.5&fp-y=0.5&ixlib=php-3.3.1&trim=color&trim-color=FFF&w=640&s=b7c412498800f070ba39143cb427d382" class="img1" alt="Genzeon Logo" />
+            </div>
+            <nav class="mb-0">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#career">Career</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home">
+        <div class="hero mt-0">
+            <h1>Better People, Better Solution.</h1>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>Genzeon is a leading provider of innovative technology solutions. Genzeon serves many audiences within the healthcare and retail ecosystem. We build innovative solutions for two of the top 20 payers in the country. We service over 40 of the largest health systems and two large GPOs with our digital platforms. Genzeon is a services partner for one of the top PBMs and expanding our health intelligence platform for Life Sciences. Our retail division supports some of the largest U.S. retailers in apparel & fashion and automotive & sports.</p>
+                <br><br>
+                <p>In the dynamic healthcare industry, many factors are crucial for the sustainability and growth of providers. Genzeon understands the unique challenges faced by healthcare providers in managing costs, improving revenue streams, and enhancing operational efficiency. Our tailored solutions are designed to help optimize existing processes while improving the experience for patients, providers, and their business associates. Our expert consultants work closely with your team to address the best use cases within your organization, while building consensus and excitement for future projects. With Genzeon by your side, you can make informed decisions that drive profitability while ensuring regulatory compliance.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://www.genzeon.com/wp-content/uploads/2023/05/Healthcare-model4-768x578.png" alt="Healthcare Model">
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service">
+                <h3>Analytics & Data Science</h3>
+                <p>Transform your data into powerful clinical and operational insights</p>
+            </div>
+            <div class="service">
+                <h3>Cloud Enablement Services</h3>
+                <p>Adapt to cloud strategy that supports your digital transformation initiatives</p>
+            </div>
+            <div class="service">
+                <h3>Generative AI (GenAI) Solutions</h3>
+                <p>Transforming Healthcare and Retail</p>
+            </div>
+            <div class="service">
+                <h3>Intelligent Automation Solutions</h3>
+                <p>Think Digital First. Digitally native processes powered by intelligent automation</p>
+            </div>
+            <div class="service">
+                <h3>Quality Assurance</h3>
+                <p>Quality assurance is at the forefront of service and solutions.</p>
+            </div>
+            <div class="service">
+                <h3>Salesforce & CRM</h3>
+                <p>Enterprise efficiency and visibility with automated business processes powered by Salesforce</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="career">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2>Careers</h2>
+                <h1>Genzeon Careers Not placing you in a job – <br>Connecting you with a future</h1>
+                <br><br>
+                <p>The Genzeon Leadership & Family are a team of tech-savvy professionals who possess strong expertise across the entire technical stack, embody empathy at the workplace, trust themselves and their abilities, and enjoy a tremendous technical challenge just as much as a game of ping pong.</p>
+                <p>Our knowledge extends beyond the basic “nuts and bolts” of technology. Our technocrats understand the challenges and needs of the modern, competitive business landscape. With our expertise, our clients can transform their digital strategies to remain competitive and find success.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://th.bing.com/th/id/OIP.pewH2cA6c9lS77smB7P5HwHaFj?rs=1&pid=ImgDetMain" alt="Healthcare Model">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Genzeon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" onclick="toggleChat()">Chat with us!</button>
+        <div class="chatbot" id="chatbot">
+            <div class="chatbot-header">
+                <h3>Genzeon Chatbot</h3>
+                <button class="close-btn" onclick="toggleChat()">x</button>
+            </div>
+            <div class="chatbot-body" id="chatbot-body">
+                <p>Hello! How can I assist you?</p>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            var chatbot = document.getElementById("chatbot");
+            chatbot.classList.toggle("active");
+        }
+
+        function sendMessage() {
+            var userInput = document.getElementById("chatbot-input").value;
+            if (userInput.trim() === "") return;
+            var chatbotBody = document.getElementById("chatbot-body");
+            var userMessage = document.createElement("p");
+            userMessage.textContent = "User: " + userInput;
+            chatbotBody.appendChild(userMessage);
+
+            // Send user input to server and get response
+            fetch('/get_response', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'user_input': userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var botMessage = document.createElement("p");
+                botMessage.textContent = "Robo: " + data.response;
+                chatbotBody.appendChild(botMessage);
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var botMessage = document.createElement("p");
+                botMessage.textContent = "Robo: Sorry, something went wrong.";
+                chatbotBody.appendChild(botMessage);
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+            });
+
+            document.getElementById("chatbot-input").value = "";
+        }
+
+        // Add event listener to handle Enter key press
+        document.getElementById("chatbot-input").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault(); // Prevent the default action (new line)
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
